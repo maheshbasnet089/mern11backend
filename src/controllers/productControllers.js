@@ -34,9 +34,3 @@ export {sayHello,newName}
 
 
 
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/RameshAdhikari860/back11ecom.git
-git push -u origin main
