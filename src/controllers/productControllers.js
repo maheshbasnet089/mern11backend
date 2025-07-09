@@ -81,7 +81,7 @@ const updateProduct = async (req,res)=>{
 
 }
 
-export {createProduct,getAllProduct,getProductById,deleteProductById}
+export {createProduct,getAllProduct,getProductById,deleteProductById,updateProduct}
 
 
 

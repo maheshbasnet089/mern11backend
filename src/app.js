@@ -13,6 +13,8 @@ app.use(express.urlencoded({extended:true}))
 connectDb()
 
 app.use('/product',productRoutes)
+// app.use('/auth')
+
 
 
 
