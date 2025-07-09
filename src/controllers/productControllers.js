@@ -55,14 +55,33 @@ const getProductById =  async (req,res)=>{
 }
 
 
-export {createProduct,getAllProduct,getProductById}
+const  deleteProductById = async (req,res)=>{
+try {
+    const id = req.params.id
+    const data = await Product.findByIdAndDelete(id)
+    res.status(200).json({message:"Product deletes Successfully"})
+} catch (error) {
+    console.log(error.message)
+    res.status(400).send("Error occured while trying to delete")
+}
+}
+const updateProduct = async (req,res)=>{
+
+     try {
+         const id = req.params.id
+    //   const {ram,rom,productName,gen,price,brand} = req.body
+        
+
+    const data = await  Product.findByIdAndUpdate(id,req.body,{new:true})
+        res.status(200).json({data,message:"prduct updated succcessfully"})
+     } catch (error) {
+        console.log(error.message)
+        res.status(400).send(error.message)
+     }
+
+}
+
+export {createProduct,getAllProduct,getProductById,deleteProductById}
 
 
 
-
-git init
-git add .
-git commit -m "getAll singleGet create"
-git branch -M main
-git remote add origin https://github.com/maheshbasnet089/mern11backend.git
-git push -u origin main
