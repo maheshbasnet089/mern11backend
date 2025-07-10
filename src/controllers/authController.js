@@ -1,5 +1,5 @@
-import User from "../models/User"
-
+import User from "../models/User.js"
+import jwt from 'jsonwebtoken'
 
 
 const register = async(req,res)=>{
@@ -26,10 +26,9 @@ const register = async(req,res)=>{
      throw new Error("user already exists")
    }
 
-  const data = User.create({
+  const data = await  User.create({
     userName,
     password,
-    phone,
     email
   })
 
@@ -47,4 +46,49 @@ const register = async(req,res)=>{
 
 }
 
-export {register}
+
+const login = async (req,res)=>{
+
+
+  try {
+    
+
+  const {email,password} = req.body
+
+  const userExist = await User.findOne({email: email})
+
+  if(!userExist){throw new Error("Invalid User")}
+
+    console.log(userExist)
+    // userExist = {
+    //   "emai" : "user@gmail.com",
+    //   "password" : "user",
+    //   "userName" : "user"
+    // }
+
+    if(password !== userExist.password){throw new Error('Invalid Credentials')}
+
+    const payload = {
+      email : userExist.email,
+      id : userExist._id,
+      role : userExist.role,
+      userName: userExist.userName
+    }
+
+
+   const token =  jwt.sign(payload,"secretKey")
+   
+   res.cookie('authToken',token)
+
+res.status(200).json({message : "userLoggedIN successfully", token})
+  } catch (error) {
+    
+    console.log(error.message)
+    res.status(400).send(error.message)
+  }
+
+
+}
+
+
+export {register,login}

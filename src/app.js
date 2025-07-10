@@ -1,6 +1,7 @@
 import express from 'express';
 
 import productRoutes from './routes/productRoutes.js'
+import authRoutes from './routes/authRoute.js'
 import connectDb from './config/database.js';
 
 
@@ -10,15 +11,16 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
+
 connectDb()
-
 app.use('/product',productRoutes)
-// app.use('/auth')
+app.use('/auth',authRoutes)
 
 
 
 
 
+ 
 
 
 
