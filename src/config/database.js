@@ -11,7 +11,6 @@ const connectDb = async ()=>{
 
          const adminExist = await User.findOne({email:"admin@gmail.com"})
     
-            console.log(adminExist)
 
         if(adminExist){
             console.log("Admin already exists")

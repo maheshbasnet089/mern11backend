@@ -23,7 +23,8 @@ const createProduct = async (req,res)=>{
         ram : ram,
         rom : rom,
         price : price,
-        description : description
+        description : description,
+        brand : brand
 
     })
     res.send(data)
@@ -37,7 +38,29 @@ const createProduct = async (req,res)=>{
 const  getAllProduct = async (req,res)=>{
 
    try {
-    const data =  await Product.find()
+
+     const query = req.query
+
+
+     const sort = JSON.parse(req.query.sort || '{}')
+
+     console.log(sort)
+     const filter = {}
+  
+    //  if(req.query.brand){filter.brand = {$in :req.query.brand.split(',')} }
+
+    //  console.log(filter)
+
+   
+    //  return res.send(filter).sort(sort)
+
+
+     
+     brand : 'Acer'
+     brand :{$in :['Acer','Dell']}
+    const data =  await Product.find(filter).sort(sort).limit(5).skip(5)
+
+
    res.status(200).json({data})
    } catch (error) {
     console.log(error.message)
